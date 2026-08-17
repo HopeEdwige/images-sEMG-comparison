@@ -17,11 +17,14 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
         .pannable-img {
             transition: transform 0.05s linear;
+        }
+        #modal-img-container {
             cursor: grab;
         }
-        .pannable-img:active {
+        #modal-img-container:active {
             cursor: grabbing;
         }
     </style>
@@ -86,16 +89,12 @@
         </div>
     </main>
 
-<script>
-        // --- BASE DE DONNÉES DES SCÉNARIOS ---
-        // Pour Github Pages, remplacez les URL "placehold.co" par les vrais chemins vers vos images
-        // Exemple : "./images/cas1_avant.png"
-        
+    <script>
         const scenarios = [
             {
                 id: "avant-decomp",
                 title: "1. UMs à une même position",
-                badge: "Vérité Terrain",
+                badge: "Cas 1",
                 description: "Analyse globale de la topographie générée par le modèle SYNCHRO avec des UMs à la même position.",
                 images: [
                     {
@@ -129,12 +128,12 @@
                         url: "meme-position/ANOVA_Normal_rep1.png"
                     }
                 ],
-                conclusion: "NaN"
+                conclusion: "Bien que la signature spatiale soit identique (les MUAPs atteignent les électrodes de la même manière), l'asynchronisme temporel permet théoriquement à l'ICA de distinguer les sources. Cependant, la forte colinéarité spatiale rend la matrice de mélange mal conditionnée, poussant l'algorithme à ses limites de résolution et augmentant le risque d'instabilité."
             },
             {
                 id: "cas-freq-diff",
                 title: "2. UMs à une même position et une même fréquence",
-                badge: "Cas Limite 1",
+                badge: "Cas 2",
                 description: "Analyse globale de la topographie générée par le modèle SYNCHRO avec des UMs à la même position et à la même fréquence.",
                 images: [
                     {
@@ -168,13 +167,13 @@
                         url: "meme-position-meme-fréquence/ANOVA_NOR_rep1.png"
                     }
                 ],
-                conclusion: ""
+                conclusion: "Dans cette configuration, les signatures spatiales et temporelles se superposent absolument. Face à ce mélange parfaitement colinéaire, il est mathématiquement impossible d'opérer une séparation. Les algorithmes fusionnent inévitablement les énergies de ces unités au sein d'une seule et unique source extraite."
             },
             {
                 id: "cas-sync-surface",
                 title: "3. UMs à une même fréquence en surface (y=0)",
-                badge: "Cas Limite 2",
-                description: "Analyse globale de la topographie générée par le modèle SYNCHRO avec des UMs à la même fréquence de 20 Hz, mais cette fois-ci situées en surface (y=0).",
+                badge: "Cas 3",
+                description: "Analyse globale de la topographie générée par le modèle SYNCHRO avec des UMs à la même fréquence de 20 Hz, situées en surface (y=0).",
                 images: [
                     {
                         title: "Matrice de Corrélation Globale",
@@ -207,13 +206,13 @@
                         url: "meme-fréquence-y=0/ANOVA_Normal_rep1.png"
                     }
                 ],
-                conclusion: "NaN"
+                conclusion: "La proximité avec la grille HD-sEMG crée des gradients spatiaux très marqués. Cette forte différenciation topographique sauve le processus de décomposition : les algorithmes parviennent à différencier les sources en se basant sur les fortes variations d'amplitude inter-canaux, compensant ainsi la colinéarité temporelle des tirs."
             },
             {
                 id: "cas-sync-prof",
                 title: "4. UMs à une même fréquence en profondeur (y=-5)",
-                badge: "Cas Limite 3",
-                description: "Analyse globale de la topographie générée par le modèle SYNCHRO avec des UMs à la même fréquence de 20 Hz, mais situées en profondeur (y=-5).",
+                badge: "Cas 4",
+                description: "Analyse globale de la topographie générée par le modèle SYNCHRO avec des UMs à la même fréquence de 20 Hz, situées en profondeur (y=-5).",
                 images: [
                     {
                         title: "Matrice de Corrélation Globale",
@@ -244,14 +243,15 @@
                         title: "ANOVA et observations statistiques",
                         subtitle: "Différences significatives entre les canaux et les sources",
                         url: "meme-fréquence-y=-5/ANOVA_NOR_rep1.png"
-                    }
+                    },
+                    
                 ],
-                conclusion: "C'est la limite clinique majeure : en profondeur, la combinaison du lissage spatial et de la colinéarité temporelle empêche la résolution du mélange par les techniques BSS classiques."
+                conclusion: "C'est la limite clinique majeure : en profondeur, les tissus agissent comme un filtre passe-bas spatial. L'atténuation lisse les champs électriques et élargit la zone de détection, rendant les signatures spatiales presque identiques à la surface de la peau. Cumulé au synchronisme temporel, le problème devient extrêmement difficile à résoudre."
             },
             {
                 id: "cas-impossible",
                 title: "5. UMs en diagonale",
-                badge: "Worst-Case",
+                badge: "Cas 5",
                 description: "Analyse de la décomposition lorsque les UMs sont disposées en diagonale, afin de voir comment se passe la décomposition.",
                 images: [
                     {
@@ -287,10 +287,10 @@
                 ],
                 conclusion: "Il est mathématiquement impossible d'opérer une séparation. Les algorithmes fusionnent inévitablement les énergies de ces unités au sein d'une seule composante."
             },
-            {
+             {
                 id: "cas-verticale",
                 title: "6. UMs en verticale",
-                badge: "Test Topographique",
+                badge: "Cas 6",
                 description: "Analyse de la décomposition lorsque les UMs sont en topographie 1-1-1-1-1 avec des fréquences différentes, afin d'observer l'effet de la topographie sur la séparation.",
                 images: [
                     {
@@ -329,7 +329,7 @@
             {
                 id: "topo-2-1-2",
                 title: "7. UMs en topographie 2-1-2",
-                badge: "Test Topographique",
+                badge: "Cas 7",
                 description: "Analyse de la décomposition lorsque les UMs sont en topographie 2-1-2 avec des fréquences différentes, afin d'observer l'effet de la topographie sur la séparation.",
                 images: [
                     {
@@ -367,8 +367,8 @@
             },
             {
                 id: "topo-2-2-1",
-                title: "7. UMs en topographie 2-2-1",
-                badge: "Test Topographique",
+                title: "8. UMs en topographie 2-2-1",
+                badge: "Cas 8",
                 description: "Analyse de la décomposition lorsque les UMs sont en topographie 2-2-1 avec des fréquences différentes, afin d'observer l'effet de la topographie sur la séparation.",
                 images: [
                     {
@@ -406,8 +406,8 @@
             },
             {
                 id: "topo-3-2-3",
-                title: "8. UMs en topographie 3-2-3",
-                badge: "Test Topographique",
+                title: "9. UMs en topographie 3-2-3",
+                badge: "Cas 9",
                 description: "Analyse de la décomposition lorsque les UMs sont en topographie 3-2-3 avec des fréquences différentes, afin d'observer l'effet de la topographie sur la séparation.",
                 images: [
                     {
@@ -591,6 +591,9 @@
             isDragging = true;
             startX = clientX - panX;
             startY = clientY - panY;
+            
+            // Désactiver la transition CSS pendant le glisser-déposer pour éviter l'effet de lag (ressort)
+            if (modalImg) modalImg.style.transition = 'none';
         }
 
         function onDrag(clientX, clientY) {
@@ -602,11 +605,14 @@
 
         function endDrag() {
             isDragging = false;
+            // Réactiver la transition pour que le zoom à la molette reste fluide
+            if (modalImg) modalImg.style.transition = '';
         }
 
-        if (modalImg) {
+        // On attache les événements au conteneur global (zone sombre) au lieu de l'image
+        if (modalContainer) {
             // Mouse events
-            modalImg.addEventListener('mousedown', (e) => {
+            modalContainer.addEventListener('mousedown', (e) => {
                 startDrag(e.clientX, e.clientY);
                 e.preventDefault();
             });
@@ -620,10 +626,9 @@
             });
 
             // Touch events for mobile/tablets
-            modalImg.addEventListener('touchstart', (e) => {
+            modalContainer.addEventListener('touchstart', (e) => {
                 if (e.touches.length === 1) {
                     startDrag(e.touches[0].clientX, e.touches[0].clientY);
-                    e.preventDefault();
                 }
             }, { passive: false });
 
@@ -654,11 +659,14 @@
         });
     </script>
 
-    <!-- Modale d'agrandissement d'image avec contrôles de zoom et déplacement -->
+     <!-- Modale d'agrandissement d'image avec contrôles de zoom et déplacement -->
     <div id="image-modal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-sm hidden flex items-center justify-center p-4 cursor-pointer" onclick="closeModal()">
         <div class="relative max-w-6xl max-h-[95vh] w-full bg-white rounded-2xl overflow-hidden shadow-2xl p-4 flex flex-col" onclick="event.stopPropagation()">
             <div class="flex justify-between items-center pb-3 border-b border-slate-100">
-                <h3 id="modal-title" class="font-bold text-slate-800 text-sm"></h3>
+                <div class="flex items-center gap-3">
+                    <h3 id="modal-title" class="font-bold text-slate-800 text-sm"></h3>
+                    <span id="modal-counter" class="text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100 px-2.5 py-0.5 rounded-full"></span>
+                </div>
                 <div class="flex items-center gap-2">
                     <span id="zoom-level" class="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-1 rounded">100%</span>
                     <button onclick="zoomOut()" class="p-1.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" title="Zoom arrière (-)">
@@ -668,7 +676,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line><line x1="11" y1="8" x2="11" y2="14"></line></svg>
                     </button>
                     <button onclick="resetZoom()" class="p-1.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors text-xs font-medium px-2" title="Réinitialiser le zoom (0)">
-                        Réinitialiser
+                    Réinitialiser
                     </button>
                     <button onclick="closeModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors ml-2" title="Fermer (Échap)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -676,9 +684,17 @@
                 </div>
             </div>
             <div id="modal-img-container" class="relative flex-1 overflow-hidden flex items-center justify-center bg-slate-900 rounded-xl mt-3 min-h-[500px]">
+                <!-- Boutons de navigation Flèches Précédent / Suivant -->
+                <button onclick="prevImage(); event.stopPropagation();" class="absolute left-4 z-20 bg-slate-800/80 hover:bg-slate-700 text-white p-3 rounded-full backdrop-blur transition-all shadow-lg hover:scale-110 flex items-center justify-center" title="Image précédente (Flèche gauche)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button onclick="nextImage(); event.stopPropagation();" class="absolute right-4 z-20 bg-slate-800/80 hover:bg-slate-700 text-white p-3 rounded-full backdrop-blur transition-all shadow-lg hover:scale-110 flex items-center justify-center" title="Image suivante (Flèche droite)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
                 <img id="modal-img" src="" alt="Agrandissement" class="pannable-img max-w-full max-h-[70vh] object-contain select-none" draggable="false" onerror="this.src='https://placehold.co/800x600/1e293b/cbd5e1?text=Image+non+disponible'">
                 <div class="absolute bottom-3 left-3 bg-slate-800/80 backdrop-blur text-white text-[11px] px-3 py-1 rounded-full pointer-events-none">
-                    💡 Astuce : Cliquez et glissez pour déplacer l'image, ou utilisez la molette pour zoomer.
+                    💡 Astuce : Utilisez les flèches ← → de votre clavier pour naviguer, glissez pour déplacer, ou la molette pour zoomer.
                 </div>
             </div>
         </div>
