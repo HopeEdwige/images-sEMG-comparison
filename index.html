@@ -288,23 +288,160 @@
                 conclusion: "Il est mathématiquement impossible d'opérer une séparation. Les algorithmes fusionnent inévitablement les énergies de ces unités au sein d'une seule composante."
             },
             {
-                id: "cas-diagonale",
-                title: "6. Architecture en Diagonale",
+                id: "cas-verticale",
+                title: "6. UMs en verticale",
                 badge: "Test Topographique",
-                description: "Test de la robustesse des filtres spatiaux face à une répartition non linéaire des fibres musculaires (par exemple : le pennation du muscle).",
+                description: "Analyse de la décomposition lorsque les UMs sont en topographie 1-1-1-1-1 avec des fréquences différentes, afin d'observer l'effet de la topographie sur la séparation.",
                 images: [
                     {
-                        title: "Propagation sur l'axe transverse",
-                        subtitle: "Délais variables sur la grille",
-                        url: "https://placehold.co/600x400/f8fafc/334155?text=Propagation+Diagonale\n(Délai+Variable)"
+                        title: "Matrice de Corrélation Globale",
+                        subtitle: "Forte redondance spatiale entre les 64 canaux",
+                        url: "verticale/Matrice_correlation_Normal_rep1.png"
                     },
                     {
-                        title: "Matrice de corrélation modifiée",
-                        subtitle: "Structures extra-diagonales spécifiques",
-                        url: "https://placehold.co/600x400/f8fafc/334155?text=Matrice+Diagonale"
+                        title: "Forme des MUAPs (Vérité Terrain)",
+                        subtitle: "Propagation spatio-temporelle extraite par Spike-Triggered Averaging",
+                        url: "verticale/forme_MUAPs_Normal_rep1.png"
+                    },
+                    {
+                        title: "Corrélation croisée avec ICA",
+                        subtitle: "Résultats de séparation par FastICA",
+                        url: "verticale/Corrélation_Croisée_ICA_TPAUM_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "Corrélation croisée avec CCA",
+                        subtitle: "Résultats de séparation par CCA",
+                        url: "verticale/Corrélation_Croisée_CCA_TPAUM_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "Comparaison du Train de Dirac",
+                        subtitle: "Observation des moments de décharge des unités motrices",
+                        url: "verticale/Comparaison_Train_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "ANOVA et observations statistiques",
+                        subtitle: "Différences significatives entre les canaux et les sources",
+                        url: "verticale/ANOVA_Normal_rep1.png"
                     }
                 ],
-                conclusion: "La disposition asymétrique modifie les temps de transit perçus par les électrodes. FastICA gère bien ces décalages, tant que le rapport signal-sur-bruit reste suffisant."
+                conclusion: "NaN"
+            },
+            {
+                id: "topo-2-1-2",
+                title: "7. UMs en topographie 2-1-2",
+                badge: "Test Topographique",
+                description: "Analyse de la décomposition lorsque les UMs sont en topographie 2-1-2 avec des fréquences différentes, afin d'observer l'effet de la topographie sur la séparation.",
+                images: [
+                    {
+                        title: "Matrice de Corrélation Globale",
+                        subtitle: "Forte redondance spatiale entre les 64 canaux",
+                        url: "topo-2-1-2/Matrice_correlation_Normal_rep1.png"
+                    },
+                    {
+                        title: "Forme des MUAPs (Vérité Terrain)",
+                        subtitle: "Propagation spatio-temporelle extraite par Spike-Triggered Averaging",
+                        url: "topo-2-1-2/forme_MUAPs_Normal_rep1.png"
+                    },
+                    {
+                        title: "Corrélation croisée avec ICA",
+                        subtitle: "Résultats de séparation par FastICA",
+                        url: "topo-2-1-2/Corrélation_Croisée_ICA_TPAUM_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "Corrélation croisée avec CCA",
+                        subtitle: "Résultats de séparation par CCA",
+                        url: "topo-2-1-2/Corrélation_Croisée_CCA_TPAUM_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "Comparaison du Train de Dirac",
+                        subtitle: "Observation des moments de décharge des unités motrices",
+                        url: "topo-2-1-2/Comparaison_Train_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "ANOVA et observations statistiques",
+                        subtitle: "Différences significatives entre les canaux et les sources",
+                        url: "topo-2-1-2/ANOVA_Normal_rep1.png"
+                    }
+                ],
+                conclusion: "NaN"
+            },
+            {
+                id: "topo-2-2-1",
+                title: "7. UMs en topographie 2-2-1",
+                badge: "Test Topographique",
+                description: "Analyse de la décomposition lorsque les UMs sont en topographie 2-2-1 avec des fréquences différentes, afin d'observer l'effet de la topographie sur la séparation.",
+                images: [
+                    {
+                        title: "Matrice de Corrélation Globale",
+                        subtitle: "Forte redondance spatiale entre les 64 canaux",
+                        url: "topo-2-2-1/Matrice_correlation_Normal_rep1.png"
+                    },
+                    {
+                        title: "Forme des MUAPs (Vérité Terrain)",
+                        subtitle: "Propagation spatio-temporelle extraite par Spike-Triggered Averaging",
+                        url: "topo-2-2-1/forme_MUAPs_Normal_rep1.png"
+                    },
+                    {
+                        title: "Corrélation croisée avec ICA",
+                        subtitle: "Résultats de séparation par FastICA",
+                        url: "topo-2-2-1/Corrélation_Croisée_ICA_TPAUM_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "Corrélation croisée avec CCA",
+                        subtitle: "Résultats de séparation par CCA",
+                        url: "topo-2-2-1/Corrélation_Croisée_CCA_TPAUM_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "Comparaison du Train de Dirac",
+                        subtitle: "Observation des moments de décharge des unités motrices",
+                        url: "topo-2-2-1/Comparaison_Train_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "ANOVA et observations statistiques",
+                        subtitle: "Différences significatives entre les canaux et les sources",
+                        url: "topo-2-2-1/ANOVA_Normal_rep1.png"
+                    }
+                ],
+                conclusion: "NaN"
+            },
+            {
+                id: "topo-3-2-3",
+                title: "8. UMs en topographie 3-2-3",
+                badge: "Test Topographique",
+                description: "Analyse de la décomposition lorsque les UMs sont en topographie 3-2-3 avec des fréquences différentes, afin d'observer l'effet de la topographie sur la séparation.",
+                images: [
+                    {
+                        title: "Matrice de Corrélation Globale",
+                        subtitle: "Forte redondance spatiale entre les 64 canaux",
+                        url: "topo-3-2-3/Matrice_correlation_Normal_rep1.png"
+                    },
+                    {
+                        title: "Forme des MUAPs (Vérité Terrain)",
+                        subtitle: "Propagation spatio-temporelle extraite par Spike-Triggered Averaging",
+                        url: "topo-3-2-3/forme_MUAPs_Normal_rep1.png"
+                    },
+                    {
+                        title: "Corrélation croisée avec ICA",
+                        subtitle: "Résultats de séparation par FastICA",
+                        url: "topo-3-2-3/Corrélation_Croisée_ICA_TPAUM_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "Corrélation croisée avec CCA",
+                        subtitle: "Résultats de séparation par CCA",
+                        url: "topo-3-2-3/Corrélation_Croisée_CCA_TPAUM_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "Comparaison du Train de Dirac",
+                        subtitle: "Observation des moments de décharge des unités motrices",
+                        url: "topo-3-2-3/Comparaison_Train_Dirac_Normal_rep1.png"
+                    },
+                    {
+                        title: "ANOVA et observations statistiques",
+                        subtitle: "Différences significatives entre les canaux et les sources",
+                        url: "topo-3-2-3/ANOVA_Normal_rep1.png"
+                    }
+                ],
+                conclusion: "NaN"
             }
         ];
 
